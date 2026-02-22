@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>یادآوری | ثبت تاریخ جان‌باختگان خیزش‌های آزادی‌خواهانه</title>
+    <meta name="description"
+        content="پروژه یادآوری - ثبت و یادآوری جان‌باختگان اعتراضات، خیزش‌های مردمی و حوادث تلخ تاریخ معاصر ایران">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+        :root {
+            --bg-dark: #050505;
+            --bg-glass: rgba(15, 15, 15, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #555555;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f1d279;
+            --accent-red: #ff3e3e;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --accent-glow: rgba(212, 175, 55, 0.2);
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Abstract Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(196, 30, 58, 0.03) 0%, transparent 40%),
+                #050505;
+        }
+
+        .ambient-light {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Premium Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 10;
+        }
+
+        .logo-wrap {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 12vw, 7rem);
+            font-weight: 800;
+            letter-spacing: 15px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 50%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 40px var(--accent-glow));
+            animation: heroReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes heroReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+                filter: blur(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .subtitle {
+            font-family: 'Outfit', sans-serif;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            margin-top: -15px;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        .hero-desc {
+            max-width: 850px;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            line-height: 2.2;
+            margin: 3rem auto;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+            padding: 0 40px;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .scroll-down:hover {
+            color: var(--accent-gold);
+        }
+
+        .scroll-icon {
+            animation: bounce 2s infinite;
+            font-size: 1.2rem;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Container & Grid */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 30px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 50px;
+        }
+
+        /* Modern Glass Card Style */
+        .card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid var(--border-glass);
+            border-radius: 40px;
+            padding: 80px 50px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .card:hover {
+            transform: translateY(-20px) scale(1.03);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.05);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card-inner {
+            z-index: 2;
+        }
+
+        .card-icon {
+            font-size: 6rem;
+            margin-bottom: 40px;
+            transition: var(--transition);
+        }
+
+        .icon-timeline {
+            color: var(--accent-gold);
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+        }
+
+        .icon-martyrs {
+            color: var(--accent-red);
+            filter: drop-shadow(0 0 20px rgba(255, 62, 62, 0.3));
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .card-title {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .card-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .stat-val {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            line-height: 1;
+        }
+
+        .icon-martyrs+.card-title+.card-text+.card-stats .stat-val {
+            color: var(--accent-red);
+        }
+
+        .stat-tag {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .btn-premium {
+            padding: 18px 50px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 60px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .card:hover .btn-premium {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+            font-weight: 600;
+        }
+
+        .card-martyrs:hover .btn-premium {
+            background: var(--accent-red);
+            color: #fff;
+            border-color: var(--accent-red);
+        }
+
+        /* External Links */
+        .links-wrap {
+            margin-top: 150px;
+            text-align: center;
+        }
+
+        .section-tag {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .links-title {
+            font-size: 2rem;
+            margin-bottom: 60px;
+        }
+
+        .links-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .link-box {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            padding: 30px;
+            border-radius: 24px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .link-box:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-8px);
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .link-box i {
+            font-size: 1.8rem;
+        }
+
+        .link-box span {
+            font-weight: 300;
+        }
+
+        /* Premium Footer */
+        footer {
+            padding: 120px 30px;
+            text-align: center;
+            background: linear-gradient(to top, #000, transparent);
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+            letter-spacing: 5px;
+        }
+
+        .footer-quote {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .social-link {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: var(--transition);
+            margin: 0 15px;
+        }
+
+        .social-link:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 992px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 4rem;
+                letter-spacing: 8px;
+            }
+
+            .card {
+                padding: 60px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-val {
+                font-size: 2.2rem;
+            }
+
+            .card-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-desc {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div
+            style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-gold); letter-spacing: 5px;">
+            YADAVARI</div>
+    </div>
+
+    <div class="bg-gradient"></div>
+    <div class="ambient-light" id="ambient-light"></div>
+
+    <header id="hero">
+        <div class="hero-content">
+            <div class="logo-wrap">
+                <h1 class="logo">یادآوری</h1>
+                <p class="subtitle">PROJECT YADAVARI</p>
+            </div>
+            <p class="hero-desc">
+                پروژه‌ای مستقل برای ثبت حوادث و یادآوری جان‌باختگان خیزش‌های آزادی‌خواهانه مردم ایران.
+                اینجا موزه‌ای دیجیتال است برای صدای کسانی که دیگر در میان ما نیستند، اما یادشان جاودانه باقی خواهد ماند.
+            </p>
+        </div>
+        <a href="#content" class="scroll-down">
+            <span>سفر در تاریخ</span>
+            <i class="fas fa-chevron-down scroll-icon"></i>
+        </a>
+    </header>
+
+    <div class="container" id="content">
+        <div class="cards-grid">
+            <!-- Timeline Section -->
+            <a href="iran-uprisings-timeline.html" class="card card-timeline">
+                <div class="card-inner">
+                    <i class="fas fa-landmark-dome card-icon icon-timeline"></i>
+                    <h3 class="card-title">گاه‌شمار مقاومت</h3>
+                    <p class="card-text">
+                        مروری بر اعتراضات و خیزش‌های مردم ایران از سال ۱۳۷۸ تا به امروز؛ تبلور اراده ملت در مقاطع حساس
+                        تاریخی.
+                    </p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="stat-val">۰۸</span>
+                            <span class="stat-tag">رویداد تاریخی</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-val" id="totalDeathCount">۳,۸۸۸+</span>
+                            <span class="stat-tag">جان‌باخته کل</span>
+                        </div>
+                    </div>
+                    <div class="btn-premium">
+                        <span>مشاهده گاه‌شمار</span>
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Martyrs List Section -->
+            <a href="javidan-haye-koshte-shode.html" class="card card-martyrs">
+                <div class="card-inner">
+                    <i class="fas fa-book-open-reader card-icon icon-martyrs"></i>
+                    <h3 class="card-title">دفتر جاویدنامان</h3>
+                    <p class="card-text">
+                        فهرست اسامی و جزئیات جان‌باختگان خیزش‌های ۱۴۰۱، ۱۴۰۴، آبان ۹۸ و پرواز بی‌پاسخ PS752.
+                    </p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="stat-val" id="dynamicMartyrCount">...</span>
+                            <span class="stat-tag">نفر ثبت شده</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-val">۰۴</span>
+                            <span class="stat-tag">رویداد اصلی</span>
+                        </div>
+                    </div>
+                    <div class="btn-premium">
+                        <span>گشودن دفتر</span>
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <section class="links-wrap">
+            <span class="section-tag">Resources</span>
+            <h2 class="links-title">منابع و پیوندهای معتبر</h2>
+            <div class="links-row">
+                <a href="https://fa.wikipedia.org/wiki/کشته‌شدگان_خیزش_۱۴۰۴_ایران" target="_blank" class="link-box">
+                    <i class="fab fa-wikipedia-w"></i>
+                    <span>جان‌باختگان خیزش ۱۴۰۴</span>
+                </a>
+                <a href="https://fa.wikipedia.org/wiki/کشته‌شدگان_خیزش_۱۴۰۱_ایران" target="_blank" class="link-box">
+                    <i class="fab fa-wikipedia-w"></i>
+                    <span>جان‌باختگان خیزش ۱۴۰۱</span>
+                </a>
+                <a href="https://en.wikipedia.org/wiki/Ukraine_International_Airlines_Flight_752" target="_blank"
+                    class="link-box">
+                    <i class="fas fa-plane-up"></i>
+                    <span>پرواز PS752</span>
+                </a>
+                <a href="https://fa.wikipedia.org/wiki/بازداشت‌شدگان_خیزش_۱۴۰۴_ایران" target="_blank" class="link-box">
+                    <i class="fas fa-user-shield"></i>
+                    <span>بازداشت‌شدگان</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-brand">یادآوری</div>
+        <p class="footer-quote">
+            تا زمانی که نامی بر زبان رانده می‌شود، صاحب آن نام هرگز نمی‌میرد.<br>
+            یادشان همیشه سبز و راهشان پر رهرو باد.
+        </p>
+        <div class="footer-bottom">
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Created for Memory Preservation &bull; 2026</p>
+        </div>
+    </footer>
+
+    <script src="martyrs-data.js"></script>
+    <script>
+        // Loader handling
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 800);
+        });
+
+        // Ambient Light Mouse Tracking
+        document.addEventListener('mousemove', e => {
+            const x = e.clientX;
+            const y = e.clientY;
+            document.documentElement.style.setProperty('--x', `${x}px`);
+            document.documentElement.style.setProperty('--y', `${y}px`);
+        });
+
+        // Dynamic Data Fetching
+        if (window.MARTYRS_DATA) {
+            const count = window.MARTYRS_DATA.martyrs.length;
+            document.getElementById('dynamicMartyrCount').textContent = count.toLocaleString('fa-IR');
+        } else {
+            fetch('martyrs.json')
+                .then(res => res.json())
+                .then(data => {
+                    const count = data.martyrs.length;
+                    document.getElementById('dynamicMartyrCount').textContent = count.toLocaleString('fa-IR');
+                })
+                .catch(() => {
+                    document.getElementById('dynamicMartyrCount').textContent = '۲۵۰';
+                });
+        }
+
+        // Interactive Cards (Tilt & Light)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+
+                // Parallax Tilt
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const tiltX = (y - centerY) / 30;
+                const tiltY = (centerX - x) / 30;
+                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-20px) scale(1.03)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelector('.scroll-down').addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelector('#content').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>

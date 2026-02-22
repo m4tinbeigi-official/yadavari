@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دفتر جاویدنامان | یادآوری</title>
+  <meta name="description" content="فهرست جامع جاویدنامان خیزش‌های مردم ایران">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+    :root {
+      --bg-dark: #080808;
+      --bg-card: #121212;
+      --bg-glass: rgba(20, 20, 20, 0.8);
+      --text-primary: #f2f2f2;
+      --text-secondary: #9a9a9a;
+      --text-muted: #555555;
+      --accent-gold: #d4af37;
+      --accent-red: #ff3e3e;
+      --border: rgba(255, 255, 255, 0.08);
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      direction: rtl;
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(ellipse at 50% -10%, rgba(212, 175, 55, 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 110%, rgba(196, 30, 58, 0.05) 0%, transparent 60%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Navigation */
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 60px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      color: var(--accent-gold);
+      transform: translateX(-5px);
+    }
+
+    .brand-tiny {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+      letter-spacing: 3px;
+    }
+
+    /* Header Section */
+    header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      margin-bottom: 20px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* Search & Filters */
+    .controls {
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 30px;
+      margin-bottom: 60px;
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-wrap {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    #searchInput {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 18px 60px 18px 25px;
+      border-radius: 20px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 10px 24px;
+      border-radius: 50px;
+      color: var(--text-secondary);
+      font-family: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-gold);
+      color: #000;
+      border-color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    /* Grid & Cards */
+    .martyrs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .martyr-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .martyr-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-img-wrap {
+      height: 320px;
+      background: #1a1a1a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .martyr-card:hover .card-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, var(--bg-card) 100%);
+    }
+
+    .card-body {
+      padding: 25px;
+      text-align: center;
+    }
+
+    .m-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .m-info {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .m-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--accent-gold);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    /* Modal / Detail View (Simplified for now - can use a drawer or full page) */
+    /* For now let's use a nice back-side simulation or a popup */
+
+    /* Stats Footer */
+    .stats-footer {
+      margin-top: 100px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-box .count {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      display: block;
+    }
+
+    .stat-box .label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    .martyr-card {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .martyr-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #050505;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #222;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #333;
+    }
+
+    @media (max-width: 768px) {
+      .controls {
+        padding: 20px;
+      }
+
+      .martyrs-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+      }
+
+      .card-img-wrap {
+        height: 220px;
+      }
+
+      .m-name {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="nav-header">
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-right"></i>
+        <span>بازگشت به عمارت اصلی</span>
+      </a>
+      <div class="brand-tiny">YADAVARI</div>
+    </nav>
+
+    <header>
+      <h1>دفتر جاویدنامان</h1>
+      <p class="subtitle">فهرست کسانی که در راه آزادی و کرامت انسانی، جان خود را فدا کردند. نامشان جاوید، یادشان گرامی.
+      </p>
+    </header>
+
+    <div class="controls">
+      <div class="search-wrap">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="جستجوی نام، شهر یا رویداد...">
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">همه</button>
+        <button class="filter-btn" data-filter="خیزش ۱۴۰۴">خیزش ۱۴۰۴</button>
+        <button class="filter-btn" data-filter="خیزش ۱۴۰۱">۱۴۰۱ (زن زندگی آزادی)</button>
+        <button class="filter-btn" data-filter="اعتراضات آبان ۹۸">آبان ۹۸</button>
+        <button class="filter-btn" data-filter="پرواز PS752">پرواز PS752</button>
+      </div>
+    </div>
+
+    <div class="martyrs-grid" id="martyrsGrid">
+      <!-- Cards will be injected here -->
+    </div>
+
+    <div class="stats-footer">
+      <div class="stat-box">
+        <span class="count" id="statAll">...</span>
+        <span class="label">کل ثبت شده</span>
+      </div>
+      <div class="stat-box">
+        <span class="count" id="stat1404">...</span>
+        <span class="label">خیزش ۱۴۰۴</span>
+      </div>
+      <div class="stat-box">
+        <span class="count" id="stat1401">...</span>
+        <span class="label">خیزش ۱۴۰۱</span>
+      </div>
+      <div class="stat-box">
+        <span class="count" id="statOther">...</span>
+        <span class="label">سایر رویدادها</span>
+      </div>
+    </div>
+
+    <footer>
+      <p>این فهرست تنها بخشی از اسامی جان‌باختگان است و همواره در حال به‌روزرسانی می‌باشد.</p>
+      <p style="margin-top: 10px;">یادشان جاویدان 🌹</p>
+    </footer>
+  </div>
+
+  <script src="martyrs-data.js"></script>
+  <script>
+    let allMartyrs = [];
+    let currentFilter = 'all';
+    let searchTerm = '';
+
+    const grid = document.getElementById('martyrsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    // Load Data
+    async function loadData() {
+      try {
+        if (window.MARTYRS_DATA) {
+          allMartyrs = window.MARTYRS_DATA.martyrs;
+          updateStats();
+          renderCards();
+          return;
+        }
+
+        const response = await fetch('martyrs.json');
+        const data = await response.json();
+        allMartyrs = data.martyrs;
+        updateStats();
+        renderCards();
+      } catch (err) {
+        console.error("Failed to load martyrs:", err);
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--accent-red);">خطا در بارگذاری اطلاعات. برای مشاهده بهتر، پروژه را با یک وب‌سرور (مثل Live Server) باز کنید یا فایل martyrs-data.js را بررسی کنید.</p>`;
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('statAll').textContent = allMartyrs.length.toLocaleString('fa-IR');
+      document.getElementById('stat1404').textContent = allMartyrs.filter(m => m.event === 'خیزش ۱۴۰۴').length.toLocaleString('fa-IR');
+      document.getElementById('stat1401').textContent = allMartyrs.filter(m => m.event === 'خیزش ۱۴۰۱').length.toLocaleString('fa-IR');
+      document.getElementById('statOther').textContent = allMartyrs.filter(m => !['خیزش ۱۴۰۱', 'خیزش ۱۴۰۴'].includes(m.event)).length.toLocaleString('fa-IR');
+    }
+
+    function renderCards() {
+      const filtered = allMartyrs.filter(m => {
+        const matchesFilter = currentFilter === 'all' || m.event === currentFilter;
+        const matchesSearch = !searchTerm ||
+          m.name.includes(searchTerm) ||
+          (m.city && m.city.includes(searchTerm)) ||
+          (m.event && m.event.includes(searchTerm));
+        return matchesFilter && matchesSearch;
+      });
+
+      grid.innerHTML = filtered.map((m, index) => `
+                <div class="martyr-card" style="transition-delay: ${Math.min(index * 50, 500)}ms">
+                    <div class="card-img-wrap">
+                        <img src="${m.image || 'https://via.placeholder.com/400x600/111111/333333?text=+'}" alt="${m.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x600/111111/333333?text=+'">
+                        <div class="img-overlay"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="m-tag">${m.event}</div>
+                        <h3 class="m-name">${m.name}</h3>
+                        <div class="m-info">
+                            <span>${m.age ? m.age + ' ساله' : 'سن نامعلوم'}</span>
+                            <span>${m.city || ''}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+      // Trigger animation
+      setTimeout(() => {
+        document.querySelectorAll('.martyr-card').forEach(c => c.classList.add('visible'));
+      }, 100);
+    }
+
+    // Search Listener
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value;
+      renderCards();
+    });
+
+    // Filter Listener
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderCards();
+      });
+    });
+
+    loadData();
+  </script>
+</body>
+
+</html>
